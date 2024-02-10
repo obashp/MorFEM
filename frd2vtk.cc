@@ -1,17 +1,6 @@
 #include<cstdio>
 #include<cstring>
 
-// struct frdHd
-// {
-// 	unsigned short elmType;
-// 	char *fileName;
-// 	unsigned long nNodes;
-// 	unsigned long nElems;
-
-// 	frdHd(char fName[50]) : fileName(fName){}
-// 	~frdHd(){}
-// };
-
 unsigned short getNElemNodes(unsigned short &ElemType)
 {
 	unsigned short vtkElemType;
@@ -323,9 +312,10 @@ void frdHandle::readfrqData()
 		int key; unsigned long nodeidx; double v1, v2, v3;
 		for(unsigned long iNode = 0; iNode < nNodes; iNode++){
 			fscanf(frdFile,"%d %lu %lf %lf %lf",&key, &nodeidx, &v1, &v2, &v3);
-			nodalData[iNode == 0 ? nNodes-1 : iNode-1][0] = v1;
-			nodalData[iNode == 0 ? nNodes-1 : iNode-1][1] = v2;
-			nodalData[iNode == 0 ? nNodes-1 : iNode-1][2] = v3;
+
+			nodalData[nodeidx-1][0] = v1;
+			nodalData[nodeidx-1][1] = v2;
+			nodalData[nodeidx-1][2] = v3;
 		}
 
 		for(unsigned long iNode = 0; iNode < nNodes; iNode++){
